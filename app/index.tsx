@@ -1,15 +1,19 @@
 import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+const { width, height } = Dimensions.get('window');
 
 export default function DesignIndex() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {/* Top background design image */}
       <Image
         source={require('../assets/images/designIndex.png')}
         style={styles.designImage}
+        contentFit="cover"
       />
 
       {/* Foreground content */}
@@ -18,25 +22,29 @@ export default function DesignIndex() {
         <Image
           source={require('../assets/images/logo.jpg')}
           style={styles.logo}
+          contentFit="contain"
         />
 
-        {/* Tagline */}
-        <Text style={styles.text}>
-          Stay safe, stay aware — your personal safety companion is always with you.
-        </Text>
+        <View style={styles.lowerContent}>
+            {/* Tagline */}
+            <Text style={styles.text}>
+              Stay safe, stay aware — your personal safety companion is always with you.
+            </Text>
 
-        {/* Yellow indicator dot */}
-        <View style={styles.dotWrapper}>
-          <View style={styles.dot} />
-        </View>
+            {/* Yellow dot */}
+            <View style={styles.dotWrapper}>
+              <View style={styles.dot} />
+            </View>
 
-        {/* Button */}
-        <TouchableOpacity style={styles.button}>
-          <Link href="/auth" style={styles.buttonText}>Begin Journey ➔</Link>
-        </TouchableOpacity>
-
+            {/* Button */}
+            <TouchableOpacity style={styles.button}>
+              <Link href="/login" style={styles.buttonText}>
+                Begin Journey ➔
+              </Link>
+            </TouchableOpacity>
+         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -49,30 +57,35 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    width: 414,     // Figma exact width
-    height: 345,    // Figma exact height    // Push image behind content
-
+    width: width,
+    height: height * 0.45,
+    zIndex: -1,
   },
   content: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 24,
-    marginTop: -40, // slightly overlaps design image
+      
   },
   logo: {
-    width: 188,
-    height: 182,
-    marginTop: 250, 
-    marginBottom: 16,
+    width: width * 0.42,
+    height: width * 0.40,
+    marginBottom: 20,
+    marginTop: 60
+  },
+  lowerContent: {
+    marginTop: 25, 
+    alignItems: 'center',
   },
   text: {
     fontSize: 14,
     color: '#000',
     textAlign: 'center',
-    marginBottom: 24,
-    maxWidth: 300,
+    maxWidth: width * 0.8,
+    marginBottom: 40,
   },
   dotWrapper: {
-    marginBottom: 30,
+    marginBottom: 40,
   },
   dot: {
     width: 40,
@@ -84,19 +97,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF3B30',
     paddingVertical: 14,
     paddingHorizontal: 32,
-    borderRadius: 28,
+    borderRadius: 28
   },
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 16,
   },
-  overlayContent: {
-    flex: 1,
-    justifyContent: 'flex-start', // ⬅ Align content to top
-    alignItems: 'center',
-    paddingHorizontal: 24,
-    paddingTop: 100, // ⬅ Push everything down
-  },
-  
 });
