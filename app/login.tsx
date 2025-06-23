@@ -16,11 +16,12 @@ export default function Login() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       Alert.alert('Success', 'Logged in successfully!');
-      // router.replace('/home');
+      router.replace('/homepage');
     } catch (error: any) {
       Alert.alert('Error', error.message);
     }
   };
+  
 
   return (
     <View style={styles.container}>

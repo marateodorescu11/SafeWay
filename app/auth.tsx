@@ -25,7 +25,7 @@ export default function SignUp() {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       Alert.alert('Success', 'Account created successfully!');
-      // router.replace('/home');
+      router.replace('/login');
     } catch (error: any) {
       Alert.alert('Error', error.message);
     }
