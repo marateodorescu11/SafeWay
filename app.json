@@ -27,7 +27,12 @@
         "ACCESS_FINE_LOCATION",
         "ACCESS_BACKGROUND_LOCATION"
 
-      ]
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCEvv1m50apZqdR1o3RMZtZUj44Etzv6rU"
+        }
+      }
     },
     "web": {
       "bundler": "metro",
