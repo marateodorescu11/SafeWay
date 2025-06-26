@@ -26,7 +26,6 @@
         "BLUETOOTH_SCAN",
         "ACCESS_FINE_LOCATION",
         "ACCESS_BACKGROUND_LOCATION"
-
       ],
       "config": {
         "googleMaps": {
@@ -59,9 +58,9 @@
             "central"
           ],
           "bluetoothAlwaysPermission": "Allow $(PRODUCT_NAME) to connect to Bluetooth devices"
-       
-       }
-      ]
+        }
+      ],
+      "expo-sqlite"
     ],
     "experiments": {
       "typedRoutes": true

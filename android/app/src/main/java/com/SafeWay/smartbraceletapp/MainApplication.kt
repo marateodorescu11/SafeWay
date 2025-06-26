@@ -1,4 +1,4 @@
-package com.SafeWay.smartbracelet
+package com.SafeWay.smartbraceletapp
 
 import android.app.Application
 import android.content.res.Configuration

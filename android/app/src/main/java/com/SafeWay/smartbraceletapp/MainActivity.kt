@@ -1,4 +1,4 @@
-package com.SafeWay.smartbracelet
+package com.SafeWay.smartbraceletapp
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

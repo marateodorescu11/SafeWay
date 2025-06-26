@@ -7,10 +7,17 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View,
+  View
 } from 'react-native';
 import { BleManager, Device } from 'react-native-ble-plx';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+
+import {
+  createTable,
+  getZones,
+  insertZone,
+  isUserInDangerZone
+} from '../databaseservice'; // Adjust path if needed
 
 const HomePage = () => {
   const [manager] = useState(new BleManager());
@@ -20,8 +27,24 @@ const HomePage = () => {
   });
 
   useEffect(() => {
+    
     const init = async () => {
       await requestPermissions();
+      try {
+      await createTable();
+      console.log("✅ Table created");
+
+      await insertZone(52.374, 4.895, 100, 'Amsterdam danger zone');
+      console.log("✅ Zone 1 inserted");
+
+      await insertZone(52.520, 13.405, 150, 'Berlin danger zone');
+      console.log("✅ Zone 2 inserted");
+
+      const zones = await getZones();
+      console.log("✅ Fetched zones:", zones);
+      } catch (err) {
+        console.error("❌ Error in DB operations:", err);
+      }
     };
     init();
 
@@ -79,6 +102,10 @@ const HomePage = () => {
 
             if (!isNaN(lat) && !isNaN(lon)) {
               setGpsData({ latitude: lat, longitude: lon });
+
+              // Check danger zone
+              const inZone = await isUserInDangerZone(lat, lon);
+              console.log(inZone ? '🚨 User is in a danger zone!' : '✅ Safe area');
             }
           }
         }
@@ -92,7 +119,7 @@ const HomePage = () => {
     <View style={styles.container}>
       <Button title="Connect to Arduino GPS" onPress={scanAndConnect} />
       {gpsData.latitude !== null && gpsData.longitude !== null ? (
-        <>
+        <View>
           <Text style={styles.text}>
             Latitude: {gpsData.latitude}
             {'\n'}
@@ -118,7 +145,7 @@ const HomePage = () => {
               pinColor="red"
             />
           </MapView>
-        </>
+        </View>
       ) : (
         <Text style={styles.text}>Waiting for GPS location...</Text>
       )}
