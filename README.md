@@ -53,10 +53,13 @@ SafeWay integrates:
 
 ## How It Works
 
-1. The Arduino device collects GPS and sensor data.
-2. Data is transmitted via BLE to the mobile app.
-3. The app displays real-time location and checks against stored danger zones.
-4. If the emergency button is held for more than 3 seconds, Twilio sends an SMS alert with the user’s coordinates.
+1. The Arduino device collects **GPS coordinates** and sensor data in real time.  
+2. This data is sent via **Bluetooth Low Energy (BLE)** to the SAFEWAY mobile app.  
+3. The mobile app **continuously tracks the user’s location** and checks if it overlaps with stored dangerous zones.  
+   - These zones are **clearly displayed in red** on the in-app map, allowing the user to easily identify unsafe areas.  
+4. When the user enters a dangerous zone, the Arduino immediately **vibrates and triggers a buzzer** to alert them, ensuring they are notified even without looking at their phone.  
+5. If the user feels unsafe, they can **hold the emergency button for more than 3 seconds**, and an SMS alert is automatically sent via **Twilio** to a pre-defined contact or authorities.  
+   - The alert **includes the user’s live coordinates**, enabling quick and accurate response.  
 
 ---
 
