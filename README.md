@@ -1,50 +1,114 @@
-# Welcome to your Expo app 👋
+# SafeWay
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+SafeWay is a **personal safety solution** that combines a small wearable device with a mobile app to track your location and send quick SOS alerts.
+## Overview
 
-## Get started
+SafeWay integrates:
+- **Arduino Nano 33 BLE Sense Lite** with GPS, accelerometer, and gyroscope for accurate location tracking.
+- **React Native mobile app** for visualizing location, storing danger zones locally, and handling SOS alerts.
+- **Twilio integration** for sending emergency SMS messages instantly when the user triggers the emergency button.
 
-1. Install dependencies
+**Ideal for:**
+- Crime-prone neighborhoods  
+- Travelling alone  
+- Remote outdoor activities  
 
-   ```bash
-   npm install
-   ```
+**Key features:**
+1. Real-time GPS tracking via BLE
+2. Pedestrian Dead Reckoning (PDR) for no-signal support
+3. Secure communication and data handling
+4. Low energy consumption for prolonged use
+5. One-touch SOS alert with GPS coordinates
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## Technical Details
 
-In the output, you'll find options to open the app in a
+**Hardware:**
+- Arduino Nano 33 BLE Sense Lite
+- NEO-6M GPS Module
+- Accelerometer & Gyroscope
+- Physical emergency button
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+**Software:**
+- **Mobile app:** React Native (Expo), TypeScript, CSS
+- **Backend & services:** Firebase, SQLite, Twilio
+- **Libraries:**  
+  - `ArduinoBLE`, `react-native-ble-plx` (BLE communication)  
+  - `TinyGPSPlus` (GPS parsing)  
+  - `Arduino_LSM9DS1` (sensor data)  
+  - `react-native-maps` (Google Maps provider)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## Security Measures
 
-When you're ready, run:
+- **Authentication:** JSON Web Tokens with 1-hour expiration
+- **Data encryption:** SSL/TLS for all communication, Firebase encryption at rest
+- **Password security:** bcrypt hashing + salting, minimum length requirement
+- **Database protection:** Parameterized queries to prevent SQL injection, sanitized inputs
+- **BLE safety:** Validated characteristics and secure bonding
 
+---
+
+## How It Works
+
+1. The Arduino device collects GPS and sensor data.
+2. Data is transmitted via BLE to the mobile app.
+3. The app displays real-time location and checks against stored danger zones.
+4. If the emergency button is held for more than 3 seconds, Twilio sends an SMS alert with the user’s coordinates.
+
+---
+
+## Demo
+
+- [Demo Video 1](https://drive.google.com/file/d/1CajXVjrLZc-yt_qjxCDyLHiR_LI4UT6B/view?usp=sharing)  
+- [Demo Video 2](https://drive.google.com/file/d/1vR7zmAg481yBzlS1BVRzS9axlXVGkMlY/view?usp=sharing)
+
+---
+
+## Testing and Analysis
+
+- **Functional testing:** BLE & GPS responsiveness, SOS trigger accuracy
+- **Non-functional testing:** Map update speed, no-signal performance
+- **User testing:** Walking into predefined danger zones, real SOS scenario trials
+- Feedback: Positive on usability, perceived safety, and responsiveness
+
+---
+
+## Future Improvements
+
+- Add a physical buzzer alert
+- Miniaturize hardware for more discreet use
+- Suggest alternative safe routes in real time
+- Extend alert options to additional contacts
+
+---
+
+## Contributors
+
+- Mara Teodorescu  
+- Tania Mincu  
+- Natasa Tudorache  
+
+---
+
+## Installation and Setup
+
+**Mobile app:**
 ```bash
-npm run reset-project
+# Clone the repository
+git clone https://github.com/marateodorescu11/SafeWay.git
+cd SafeWay
+
+# Install dependencies
+npm install
+
+# Run on Expo
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+**Arduino device:**
+1. Open the `arduino/` folder in the Arduino IDE.
+2. Install required libraries: ArduinoBLE, TinyGPSPlus, Arduino_LSM9DS1.
+3. Connect Arduino Nano 33 BLE Sense Lite and upload the code.
