@@ -46,3 +46,17 @@ ios/GoogleService-Info.plist
 
 # example app template
 app-example
+.env
+.env.*
+android/app/google-services.json
+ios/GoogleService-Info.plist
+**/firebaseConfig*.js
+**/firebaseConfig*.ts
+*.keystore
+*.jks
+*.p8
+*.p12
+*.pem
+*.key
+*.crt
+*.mobileprovision
